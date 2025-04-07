@@ -1,59 +1,160 @@
-import React from "react";
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ChatGPT 4o - AI Powerhouse</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet" />
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: 'Inter', sans-serif;
+      }
+      body {
+        background: linear-gradient(to bottom right, #0f172a, #1e293b);
+        color: white;
+        overflow-x: hidden;
+      }
+      header {
+        max-width: 1280px;
+        margin: auto;
+        padding: 2rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      header h1 {
+        font-size: 2rem;
+        font-weight: 800;
+      }
+      main {
+        text-align: center;
+        padding: 4rem 1rem;
+        max-width: 1280px;
+        margin: auto;
+      }
+      .hero h2 {
+        font-size: 3rem;
+        font-weight: 800;
+        margin-bottom: 1rem;
+      }
+      .hero p {
+        font-size: 1.25rem;
+        opacity: 0.8;
+        max-width: 640px;
+        margin: auto;
+        margin-bottom: 2rem;
+      }
+      .hero button {
+        background: #3b82f6;
+        color: white;
+        padding: 0.8rem 2rem;
+        font-size: 1.1rem;
+        border: none;
+        border-radius: 999px;
+        cursor: pointer;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+        transition: transform 0.2s;
+      }
+      .hero button:hover {
+        transform: scale(1.05);
+      }
+      .features {
+        margin-top: 4rem;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 2rem;
+        padding: 2rem 1rem;
+      }
+      .feature {
+        background: #1e293b;
+        padding: 2rem;
+        border-radius: 1rem;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+      }
+      .feature h3 {
+        margin-top: 1rem;
+        font-size: 1.25rem;
+        font-weight: 600;
+      }
+      .testimonial, .cta, footer {
+        margin-top: 4rem;
+        text-align: center;
+        padding: 2rem;
+        opacity: 0.9;
+      }
+      .testimonial blockquote {
+        font-size: 1.2rem;
+        font-style: italic;
+        max-width: 700px;
+        margin: auto;
+      }
+      .cta h3 {
+        font-size: 2rem;
+        font-weight: 700;
+        margin-bottom: 1rem;
+      }
+      .cta button {
+        background: #22c55e;
+        color: black;
+        padding: 1rem 2.5rem;
+        font-size: 1.1rem;
+        border-radius: 999px;
+        border: none;
+        cursor: pointer;
+      }
+      footer {
+        font-size: 0.9rem;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>🚀 ChatGPT 4o</h1>
+      <nav>
+        <a href="#" style="margin-right: 1rem; color: white; text-decoration: underline;">Docs</a>
+        <a href="#" style="color: white; text-decoration: underline;">API</a>
+      </nav>
+    </header>
 
-export default function BestSiteEver() {
-  return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 to-slate-800 text-white font-sans">
-      <header className="max-w-screen-xl mx-auto py-8 px-4 flex justify-between items-center">
-        <h1 className="text-3xl font-extrabold">🚀 ChatGPT 4o</h1>
-        <nav className="space-x-4">
-          <a href="#" className="text-white underline">Docs</a>
-          <a href="#" className="text-white underline">API</a>
-        </nav>
-      </header>
+    <main>
+      <section class="hero">
+        <h2>Unleash GPT-4o Superpowers 🔮</h2>
+        <p>Smartest. Fastest. Most human AI ever. Built for creators, coders, and dreamers.</p>
+        <button>Try Now →</button>
+      </section>
 
-      <main className="text-center px-4 py-12 max-w-screen-xl mx-auto">
-        <section className="hero mb-16">
-          <h2 className="text-5xl font-extrabold mb-4">Unleash GPT-4o Superpowers 🔮</h2>
-          <p className="text-lg opacity-80 max-w-2xl mx-auto mb-8">
-            Smartest. Fastest. Most human AI ever. Built by the legends at ChatGPT, for creators, coders, and dreamers.
-          </p>
-          <button className="bg-blue-500 hover:scale-105 transform transition text-white py-3 px-6 text-lg rounded-full shadow-xl">
-            Try Now →
-          </button>
-        </section>
+      <section class="features">
+        <div class="feature">
+          <img src="https://img.icons8.com/ios-filled/50/ffffff/rocket--v1.png" alt="Rocket" />
+          <h3>Insanely Fast</h3>
+        </div>
+        <div class="feature">
+          <img src="https://img.icons8.com/ios-filled/50/ffffff/brain.png" alt="Brain" />
+          <h3>Super Smart</h3>
+        </div>
+        <div class="feature">
+          <img src="https://img.icons8.com/ios-filled/50/ffffff/star.png" alt="Star" />
+          <h3>People Love It</h3>
+        </div>
+      </section>
 
-        <section className="features grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 px-4">
-          <div className="feature bg-slate-800 p-8 rounded-2xl shadow-md">
-            <img src="https://img.icons8.com/ios-filled/50/ffffff/rocket--v1.png" alt="Rocket" className="mx-auto mb-4" />
-            <h3 className="text-xl font-semibold">Insanely Fast</h3>
-          </div>
-          <div className="feature bg-slate-800 p-8 rounded-2xl shadow-md">
-            <img src="https://img.icons8.com/ios-filled/50/ffffff/brain.png" alt="Brain" className="mx-auto mb-4" />
-            <h3 className="text-xl font-semibold">Super Smart</h3>
-          </div>
-          <div className="feature bg-slate-800 p-8 rounded-2xl shadow-md">
-            <img src="https://img.icons8.com/ios-filled/50/ffffff/star.png" alt="Star" className="mx-auto mb-4" />
-            <h3 className="text-xl font-semibold">People Love It</h3>
-          </div>
-        </section>
+      <section class="testimonial">
+        <blockquote>
+          “ChatGPT 4o blew my mind. It's like talking to the future.” – Every Dev Ever
+        </blockquote>
+      </section>
 
-        <section className="testimonial text-center mt-16 px-4">
-          <blockquote className="text-xl italic max-w-3xl mx-auto">
-            “ChatGPT 4o blew my mind. It's like talking to the future.” — Every Dev Ever
-          </blockquote>
-        </section>
+      <section class="cta">
+        <h3>Join the Revolution</h3>
+        <button>Get Access 🔥</button>
+      </section>
+    </main>
 
-        <section className="cta text-center mt-16 px-4">
-          <h3 className="text-3xl font-bold mb-4">Join the Revolution</h3>
-          <button className="bg-green-400 text-black py-3 px-8 text-lg rounded-full cursor-pointer">
-            Get Access 🔥
-          </button>
-        </section>
-      </main>
-
-      <footer className="text-center text-sm py-8 opacity-80">
-        Made with 💻 by <a href="https://openai.com" className="text-blue-400">ChatGPT AI</a> — 2025
-      </footer>
-    </div>
-  );
-}
+    <footer>
+      Made with 💻 by <a href="https://openai.com" style="color:#60a5fa;">ChatGPT AI</a> — 2025
+    </footer>
+  </body>
+</html>
