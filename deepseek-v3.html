@@ -5,627 +5,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cosmic Explorer | The Best Website Ever</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+      const savedTheme = localStorage.getItem('theme') || 'light';
+      document.documentElement.setAttribute('data-theme', savedTheme);
+    </script>
     <style>
-        :root {
-            --primary: #6c5ce7;
-            --secondary: #a29bfe;
-            --text: #2d3436;
-            --background: #f9f9f9;
-            --card: #ffffff;
-            --shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-            --transition: all 0.3s ease;
-        }
-
-        [data-theme="dark"] {
-            --primary: #a29bfe;
-            --secondary: #6c5ce7;
-            --text: #f9f9f9;
-            --background: #1a1a2e;
-            --card: #16213e;
-            --shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-
-        body {
-            background-color: var(--background);
-            color: var(--text);
-            transition: var(--transition);
-            line-height: 1.6;
-            overflow-x: hidden;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-
-        /* Header */
-        header {
-            padding: 20px 0;
-            position: fixed;
-            width: 100%;
-            top: 0;
-            z-index: 1000;
-            background-color: var(--background);
-            box-shadow: var(--shadow);
-            transition: var(--transition);
-        }
-
-        nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .logo {
-            font-size: 1.8rem;
-            font-weight: 700;
-            color: var(--primary);
-            text-decoration: none;
-            display: flex;
-            align-items: center;
-        }
-
-        .logo i {
-            margin-right: 10px;
-        }
-
-        .nav-links {
-            display: flex;
-            list-style: none;
-        }
-
-        .nav-links li {
-            margin-left: 30px;
-        }
-
-        .nav-links a {
-            color: var(--text);
-            text-decoration: none;
-            font-weight: 500;
-            transition: var(--transition);
-            position: relative;
-        }
-
-        .nav-links a:hover {
-            color: var(--primary);
-        }
-
-        .nav-links a::after {
-            content: '';
-            position: absolute;
-            width: 0;
-            height: 2px;
-            background: var(--primary);
-            bottom: -5px;
-            left: 0;
-            transition: var(--transition);
-        }
-
-        .nav-links a:hover::after {
-            width: 100%;
-        }
-
-        .theme-toggle {
-            background: none;
-            border: none;
-            color: var(--text);
-            font-size: 1.2rem;
-            cursor: pointer;
-            transition: var(--transition);
-        }
-
-        .theme-toggle:hover {
-            color: var(--primary);
-            transform: rotate(30deg);
-        }
-
-        .hamburger {
-            display: none;
-            cursor: pointer;
-        }
-
-        /* Hero Section */
-        .hero {
-            height: 100vh;
-            display: flex;
-            align-items: center;
-            padding-top: 80px;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .hero-content {
-            flex: 1;
-            padding-right: 50px;
-        }
-
-        .hero h1 {
-            font-size: 3.5rem;
-            margin-bottom: 20px;
-            line-height: 1.2;
-        }
-
-        .hero h1 span {
-            color: var(--primary);
-        }
-
-        .hero p {
-            font-size: 1.2rem;
-            margin-bottom: 30px;
-            opacity: 0.9;
-            max-width: 600px;
-        }
-
-        .btn {
-            display: inline-block;
-            background: var(--primary);
-            color: white;
-            padding: 12px 30px;
-            border-radius: 30px;
-            text-decoration: none;
-            font-weight: 600;
-            transition: var(--transition);
-            border: 2px solid var(--primary);
-        }
-
-        .btn:hover {
-            background: transparent;
-            color: var(--primary);
-            transform: translateY(-3px);
-            box-shadow: 0 10px 20px rgba(108, 92, 231, 0.3);
-        }
-
-        .btn-outline {
-            background: transparent;
-            color: var(--primary);
-            margin-left: 15px;
-        }
-
-        .btn-outline:hover {
-            background: var(--primary);
-            color: white;
-        }
-
-        .hero-image {
-            flex: 1;
-            position: relative;
-            height: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .hero-image img {
-            max-width: 100%;
-            max-height: 80vh;
-            animation: float 6s ease-in-out infinite;
-            filter: drop-shadow(0 20px 30px rgba(108, 92, 231, 0.4));
-        }
-
-        @keyframes float {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-20px); }
-        }
-
-        /* Features Section */
-        .section {
-            padding: 100px 0;
-        }
-
-        .section-title {
-            text-align: center;
-            margin-bottom: 60px;
-        }
-
-        .section-title h2 {
-            font-size: 2.5rem;
-            margin-bottom: 20px;
-        }
-
-        .section-title p {
-            max-width: 700px;
-            margin: 0 auto;
-            opacity: 0.8;
-        }
-
-        .features {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-        }
-
-        .feature-card {
-            background: var(--card);
-            padding: 40px 30px;
-            border-radius: 15px;
-            box-shadow: var(--shadow);
-            transition: var(--transition);
-            text-align: center;
-        }
-
-        .feature-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
-        }
-
-        .feature-icon {
-            width: 80px;
-            height: 80px;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 25px;
-            color: white;
-            font-size: 1.8rem;
-        }
-
-        .feature-card h3 {
-            font-size: 1.5rem;
-            margin-bottom: 15px;
-        }
-
-        /* Stats Section */
-        .stats {
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            color: white;
-            padding: 80px 0;
-            text-align: center;
-        }
-
-        .stats-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 30px;
-        }
-
-        .stat-item h3 {
-            font-size: 3rem;
-            margin-bottom: 10px;
-        }
-
-        .stat-item p {
-            font-size: 1.2rem;
-            opacity: 0.9;
-        }
-
-        /* Testimonials */
-        .testimonials {
-            position: relative;
-        }
-
-        .testimonial-slider {
-            display: flex;
-            overflow-x: auto;
-            scroll-snap-type: x mandatory;
-            scroll-behavior: smooth;
-            -webkit-overflow-scrolling: touch;
-            gap: 30px;
-            padding: 20px 0;
-        }
-
-        .testimonial-card {
-            min-width: 350px;
-            scroll-snap-align: start;
-            background: var(--card);
-            padding: 30px;
-            border-radius: 15px;
-            box-shadow: var(--shadow);
-        }
-
-        .testimonial-header {
-            display: flex;
-            align-items: center;
-            margin-bottom: 20px;
-        }
-
-        .testimonial-avatar {
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            object-fit: cover;
-            margin-right: 15px;
-        }
-
-        .testimonial-user h4 {
-            font-size: 1.2rem;
-            margin-bottom: 5px;
-        }
-
-        .testimonial-user p {
-            opacity: 0.7;
-            font-size: 0.9rem;
-        }
-
-        .testimonial-rating {
-            color: #ffc107;
-            margin-top: 5px;
-        }
-
-        /* Contact Section */
-        .contact {
-            background: var(--card);
-            border-radius: 15px;
-            padding: 60px;
-            box-shadow: var(--shadow);
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 50px;
-        }
-
-        .contact-info h3 {
-            font-size: 1.8rem;
-            margin-bottom: 20px;
-        }
-
-        .contact-details {
-            margin-bottom: 30px;
-        }
-
-        .contact-item {
-            display: flex;
-            align-items: center;
-            margin-bottom: 15px;
-        }
-
-        .contact-icon {
-            width: 40px;
-            height: 40px;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            margin-right: 15px;
-        }
-
-        .contact-form input,
-        .contact-form textarea {
-            width: 100%;
-            padding: 15px;
-            margin-bottom: 20px;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            background: var(--background);
-            color: var(--text);
-            transition: var(--transition);
-        }
-
-        .contact-form input:focus,
-        .contact-form textarea:focus {
-            border-color: var(--primary);
-            outline: none;
-            box-shadow: 0 0 0 3px rgba(108, 92, 231, 0.2);
-        }
-
-        .contact-form textarea {
-            min-height: 150px;
-            resize: vertical;
-        }
-
-        /* Footer */
-        footer {
-            background: var(--card);
-            padding: 60px 0 20px;
-            box-shadow: 0 -5px 20px rgba(0, 0, 0, 0.05);
-        }
-
-        .footer-content {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 40px;
-            margin-bottom: 40px;
-        }
-
-        .footer-column h3 {
-            font-size: 1.3rem;
-            margin-bottom: 20px;
-            color: var(--primary);
-        }
-
-        .footer-links {
-            list-style: none;
-        }
-
-        .footer-links li {
-            margin-bottom: 10px;
-        }
-
-        .footer-links a {
-            color: var(--text);
-            text-decoration: none;
-            transition: var(--transition);
-            opacity: 0.8;
-        }
-
-        .footer-links a:hover {
-            color: var(--primary);
-            opacity: 1;
-            padding-left: 5px;
-        }
-
-        .social-links {
-            display: flex;
-            gap: 15px;
-        }
-
-        .social-links a {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            background: var(--background);
-            color: var(--text);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: var(--transition);
-        }
-
-        .social-links a:hover {
-            background: var(--primary);
-            color: white;
-            transform: translateY(-3px);
-        }
-
-        .footer-bottom {
-            text-align: center;
-            padding-top: 20px;
-            border-top: 1px solid rgba(0, 0, 0, 0.1);
-        }
-
-        /* Back to Top Button */
-        .back-to-top {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            width: 50px;
-            height: 50px;
-            background: var(--primary);
-            color: white;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.2rem;
-            cursor: pointer;
-            opacity: 0;
-            visibility: hidden;
-            transition: var(--transition);
-            z-index: 999;
-        }
-
-        .back-to-top.active {
-            opacity: 1;
-            visibility: visible;
-        }
-
-        .back-to-top:hover {
-            background: var(--secondary);
-            transform: translateY(-5px);
-        }
-
-        /* Animations */
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .fade-in {
-            animation: fadeIn 1s ease forwards;
-        }
-
-        .delay-1 { animation-delay: 0.2s; }
-        .delay-2 { animation-delay: 0.4s; }
-        .delay-3 { animation-delay: 0.6s; }
-        .delay-4 { animation-delay: 0.8s; }
-
-        /* Responsive Design */
-        @media (max-width: 992px) {
-            .hero {
-                flex-direction: column;
-                text-align: center;
-                padding-top: 120px;
-                height: auto;
-            }
-
-            .hero-content {
-                padding-right: 0;
-                margin-bottom: 50px;
-            }
-
-            .hero-buttons {
-                display: flex;
-                justify-content: center;
-            }
-
-            .contact {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        @media (max-width: 768px) {
-            .nav-links {
-                position: fixed;
-                top: 80px;
-                left: -100%;
-                width: 100%;
-                height: calc(100vh - 80px);
-                background: var(--card);
-                flex-direction: column;
-                align-items: center;
-                justify-content: center;
-                transition: var(--transition);
-                box-shadow: var(--shadow);
-            }
-
-            .nav-links.active {
-                left: 0;
-            }
-
-            .nav-links li {
-                margin: 15px 0;
-            }
-
-            .hamburger {
-                display: block;
-            }
-
-            .hero h1 {
-                font-size: 2.5rem;
-            }
-
-            .section {
-                padding: 60px 0;
-            }
-
-            .section-title h2 {
-                font-size: 2rem;
-            }
-
-            .contact {
-                padding: 30px;
-            }
-        }
-
-        @media (max-width: 576px) {
-            .hero-buttons {
-                flex-direction: column;
-            }
-
-            .btn-outline {
-                margin-left: 0;
-                margin-top: 15px;
-            }
-
-            .hero h1 {
-                font-size: 2rem;
-            }
-
-            .feature-card {
-                padding: 30px 20px;
-            }
-        }
+        :root{--primary:#6c5ce7;--secondary:#a29bfe;--text:#2d3436;--background:#f9f9f9;--card:#fff;--shadow:0 10px 20px rgba(0,0,0,0.1);--transition:all .3s ease}[data-theme="dark"]{--primary:#a29bfe;--secondary:#6c5ce7;--text:#f9f9f9;--background:#1a1a2e;--card:#16213e;--shadow:0 10px 20px rgba(0,0,0,0.3)}*{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif}body{background:var(--background);color:var(--text);transition:var(--transition);line-height:1.6;overflow-x:hidden}.container{max-width:1200px;margin:0 auto;padding:0 20px}header{padding:20px 0;position:fixed;width:100%;top:0;z-index:1000;background:var(--background);box-shadow:var(--shadow);transition:var(--transition)}nav{display:flex;justify-content:space-between;align-items:center}.logo{font-size:1.8rem;font-weight:700;color:var(--primary);text-decoration:none;display:flex;align-items:center}.logo i{margin-right:10px}.nav-links{display:flex;list-style:none}.nav-links li{margin-left:30px}.nav-links a{color:var(--text);text-decoration:none;font-weight:500;transition:var(--transition);position:relative}.nav-links a:hover{color:var(--primary)}.nav-links a::after{content:'';position:absolute;width:0;height:2px;background:var(--primary);bottom:-5px;left:0;transition:var(--transition)}.nav-links a:hover::after{width:100%}.theme-toggle{background:none;border:none;color:var(--text);font-size:1.2rem;cursor:pointer;transition:var(--transition)}.theme-toggle:hover{color:var(--primary);transform:rotate(30deg)}.hamburger{display:none;cursor:pointer}.hero{height:100vh;display:flex;align-items:center;padding-top:80px;position:relative;overflow:hidden}.hero-content{flex:1;padding-right:50px}.hero h1{font-size:3.5rem;margin-bottom:20px;line-height:1.2}.hero h1 span{color:var(--primary)}.hero p{font-size:1.2rem;margin-bottom:30px;opacity:.9;max-width:600px}.btn{display:inline-block;background:var(--primary);color:#fff;padding:12px 30px;border-radius:30px;text-decoration:none;font-weight:600;transition:var(--transition);border:2px solid var(--primary)}.btn:hover{background:transparent;color:var(--primary);transform:translateY(-3px);box-shadow:0 10px 20px rgba(108,92,231,.3)}.btn-outline{background:transparent;color:var(--primary);margin-left:15px}.btn-outline:hover{background:var(--primary);color:#fff}.hero-image{flex:1;position:relative;height:100%;display:flex;align-items:center;justify-content:center;-webkit-transform:translateZ(0);transform:translateZ(0)}.hero-image img{max-width:100%;max-height:80vh;animation:float 6s ease-in-out infinite;filter:drop-shadow(0 20px 30px rgba(108,92,231,.4))}@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-20px)}}.section{padding:100px 0}.section-title{text-align:center;margin-bottom:60px}.section-title h2{font-size:2.5rem;margin-bottom:20px}.section-title p{max-width:700px;margin:0 auto;opacity:.8}.features{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:30px}.feature-card{background:var(--card);padding:40px 30px;border-radius:15px;box-shadow:var(--shadow);transition:var(--transition);text-align:center;-webkit-transform:translateZ(0);transform:translateZ(0)}.feature-card:hover{transform:translateY(-10px);box-shadow:0 15px 30px rgba(0,0,0,.2)}.feature-icon{width:80px;height:80px;background:linear-gradient(135deg,var(--primary),var(--secondary));border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 25px;color:#fff;font-size:1.8rem}.feature-card h3{font-size:1.5rem;margin-bottom:15px}.stats{background:linear-gradient(135deg,var(--primary),var(--secondary));color:#fff;padding:80px 0;text-align:center}.stats-container{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:30px}.stat-item h3{font-size:3rem;margin-bottom:10px}.stat-item p{font-size:1.2rem;opacity:.9}.testimonials{position:relative}.testimonial-slider{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scroll-behavior:smooth;-webkit-overflow-scrolling:touch;gap:30px;padding:20px 0}.testimonial-card{min-width:350px;scroll-snap-align:start;background:var(--card);padding:30px;border-radius:15px;box-shadow:var(--shadow)}.testimonial-header{display:flex;align-items:center;margin-bottom:20px}.testimonial-avatar{width:60px;height:60px;border-radius:50%;object-fit:cover;margin-right:15px}.testimonial-user h4{font-size:1.2rem;margin-bottom:5px}.testimonial-user p{opacity:.7;font-size:.9rem}.testimonial-rating{color:#ffc107;margin-top:5px}.contact{background:var(--card);border-radius:15px;padding:60px;box-shadow:var(--shadow);display:grid;grid-template-columns:1fr 1fr;gap:50px}.contact-info h3{font-size:1.8rem;margin-bottom:20px}.contact-details{margin-bottom:30px}.contact-item{display:flex;align-items:center;margin-bottom:15px}.contact-icon{width:40px;height:40px;background:linear-gradient(135deg,var(--primary),var(--secondary));border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;margin-right:15px}.contact-form input,.contact-form textarea{width:100%;padding:15px;margin-bottom:20px;border:1px solid #ddd;border-radius:8px;background:var(--background);color:var(--text);transition:var(--transition)}.contact-form input:focus,.contact-form textarea:focus{border-color:var(--primary);outline:none;box-shadow:0 0 0 3px rgba(108,92,231,.2)}.contact-form textarea{min-height:150px;resize:vertical}footer{background:var(--card);padding:60px 0 20px;box-shadow:0 -5px 20px rgba(0,0,0,.05)}.footer-content{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:40px;margin-bottom:40px}.footer-column h3{font-size:1.3rem;margin-bottom:20px;color:var(--primary)}.footer-links{list-style:none}.footer-links li{margin-bottom:10px}.footer-links a{color:var(--text);text-decoration:none;transition:var(--transition);opacity:.8}.footer-links a:hover{color:var(--primary);opacity:1;padding-left:5px}.social-links{display:flex;gap:15px}.social-links a{width:40px;height:40px;border-radius:50%;background:var(--background);color:var(--text);display:flex;align-items:center;justify-content:center;transition:var(--transition)}.social-links a:hover{background:var(--primary);color:#fff;transform:translateY(-3px)}.footer-bottom{text-align:center;padding-top:20px;border-top:1px solid rgba(0,0,0,.1)}.back-to-top{position:fixed;bottom:30px;right:30px;width:50px;height:50px;background:var(--primary);color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.2rem;cursor:pointer;opacity:0;visibility:hidden;transition:var(--transition);z-index:999}.back-to-top.active{opacity:1;visibility:visible}.back-to-top:hover{background:var(--secondary);transform:translateY(-5px)}@keyframes fadeIn{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}.fade-in{animation:fadeIn 1s ease forwards}.delay-1{animation-delay:.2s}.delay-2{animation-delay:.4s}.delay-3{animation-delay:.6s}.delay-4{animation-delay:.8s}@media (max-width:992px){.hero{flex-direction:column;text-align:center;padding-top:120px;height:auto}.hero-content{padding-right:0;margin-bottom:50px}.hero-buttons{display:flex;justify-content:center}.contact{grid-template-columns:1fr}}@media (max-width:768px){.nav-links{position:fixed;top:80px;left:-100%;width:100%;height:calc(100vh - 80px);background:var(--card);flex-direction:column;align-items:center;justify-content:center;transition:var(--transition);box-shadow:var(--shadow)}.nav-links.active{left:0}.nav-links li{margin:15px 0}.hamburger{display:block}.hero h1{font-size:2.5rem}.section{padding:60px 0}.section-title h2{font-size:2rem}.contact{padding:30px}}@media (max-width:576px){.hero-buttons{flex-direction:column}.btn-outline{margin-left:0;margin-top:15px}.hero h1{font-size:2rem}.feature-card{padding:30px 20px}}
     </style>
 </head>
 <body>
-    <!-- Header -->
     <header>
         <div class="container">
             <nav>
-                <a href="#" class="logo">
-                    <i class="fas fa-rocket"></i>
-                    <span>Cosmic</span>Explorer
-                </a>
+                <a href="#" class="logo"><i class="fas fa-rocket"></i><span>Cosmic</span>Explorer</a>
                 <ul class="nav-links">
                     <li><a href="#home">Home</a></li>
                     <li><a href="#features">Features</a></li>
@@ -633,17 +25,12 @@
                     <li><a href="#testimonials">Testimonials</a></li>
                     <li><a href="#contact">Contact</a></li>
                 </ul>
-                <button class="theme-toggle" id="themeToggle">
-                    <i class="fas fa-moon"></i>
-                </button>
-                <div class="hamburger">
-                    <i class="fas fa-bars"></i>
-                </div>
+                <button class="theme-toggle" id="themeToggle"><i class="fas fa-moon"></i></button>
+                <div class="hamburger"><i class="fas fa-bars"></i></div>
             </nav>
         </div>
     </header>
 
-    <!-- Hero Section -->
     <section class="hero" id="home">
         <div class="container">
             <div class="hero-content fade-in">
@@ -655,12 +42,11 @@
                 </div>
             </div>
             <div class="hero-image fade-in delay-1">
-                <img src="https://images.unsplash.com/photo-1462331940025-496dfbfc7564?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Galaxy">
+                <img src="https://images.pexels.com/photos/2150/sky-space-dark-galaxy.jpg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="Galaxy" loading="lazy">
             </div>
         </div>
     </section>
 
-    <!-- Features Section -->
     <section class="section" id="features">
         <div class="container">
             <div class="section-title fade-in">
@@ -669,23 +55,17 @@
             </div>
             <div class="features">
                 <div class="feature-card fade-in delay-1">
-                    <div class="feature-icon">
-                        <i class="fas fa-satellite"></i>
-                    </div>
+                    <div class="feature-icon"><i class="fas fa-satellite"></i></div>
                     <h3>Real-Time Data</h3>
                     <p>Access live feeds from telescopes and space stations around the world with just a few clicks.</p>
                 </div>
                 <div class="feature-card fade-in delay-2">
-                    <div class="feature-icon">
-                        <i class="fas fa-vr-cardboard"></i>
-                    </div>
+                    <div class="feature-icon"><i class="fas fa-vr-cardboard"></i></div>
                     <h3>VR Experiences</h3>
                     <p>Immerse yourself in breathtaking virtual reality tours of distant galaxies and nebulae.</p>
                 </div>
                 <div class="feature-card fade-in delay-3">
-                    <div class="feature-icon">
-                        <i class="fas fa-chart-line"></i>
-                    </div>
+                    <div class="feature-icon"><i class="fas fa-chart-line"></i></div>
                     <h3>Advanced Analytics</h3>
                     <p>Track celestial events, analyze space data, and predict astronomical phenomena.</p>
                 </div>
@@ -693,31 +73,17 @@
         </div>
     </section>
 
-    <!-- Stats Section -->
     <section class="section stats" id="stats">
         <div class="container">
             <div class="stats-container">
-                <div class="stat-item fade-in">
-                    <h3>10K+</h3>
-                    <p>Active Explorers</p>
-                </div>
-                <div class="stat-item fade-in delay-1">
-                    <h3>500+</h3>
-                    <p>Celestial Objects</p>
-                </div>
-                <div class="stat-item fade-in delay-2">
-                    <h3>24/7</h3>
-                    <p>Live Support</p>
-                </div>
-                <div class="stat-item fade-in delay-3">
-                    <h3>99.9%</h3>
-                    <p>Uptime</p>
-                </div>
+                <div class="stat-item fade-in"><h3>10K+</h3><p>Active Explorers</p></div>
+                <div class="stat-item fade-in delay-1"><h3>500+</h3><p>Celestial Objects</p></div>
+                <div class="stat-item fade-in delay-2"><h3>24/7</h3><p>Live Support</p></div>
+                <div class="stat-item fade-in delay-3"><h3>99.9%</h3><p>Uptime</p></div>
             </div>
         </div>
     </section>
 
-    <!-- Testimonials Section -->
     <section class="section testimonials" id="testimonials">
         <div class="container">
             <div class="section-title fade-in">
@@ -727,16 +93,12 @@
             <div class="testimonial-slider">
                 <div class="testimonial-card fade-in delay-1">
                     <div class="testimonial-header">
-                        <img src="https://randomuser.me/api/portraits/women/32.jpg" alt="User" class="testimonial-avatar">
+                        <img src="https://randomuser.me/api/portraits/women/32.jpg" alt="User" class="testimonial-avatar" loading="lazy">
                         <div class="testimonial-user">
                             <h4>Sarah Johnson</h4>
                             <p>Astronomy Enthusiast</p>
                             <div class="testimonial-rating">
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
                             </div>
                         </div>
                     </div>
@@ -744,16 +106,12 @@
                 </div>
                 <div class="testimonial-card fade-in delay-2">
                     <div class="testimonial-header">
-                        <img src="https://randomuser.me/api/portraits/men/45.jpg" alt="User" class="testimonial-avatar">
+                        <img src="https://randomuser.me/api/portraits/men/45.jpg" alt="User" class="testimonial-avatar" loading="lazy">
                         <div class="testimonial-user">
                             <h4>Michael Chen</h4>
                             <p>Science Teacher</p>
                             <div class="testimonial-rating">
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star-half-alt"></i>
+                                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
                             </div>
                         </div>
                     </div>
@@ -761,16 +119,12 @@
                 </div>
                 <div class="testimonial-card fade-in delay-3">
                     <div class="testimonial-header">
-                        <img src="https://randomuser.me/api/portraits/women/68.jpg" alt="User" class="testimonial-avatar">
+                        <img src="https://randomuser.me/api/portraits/women/68.jpg" alt="User" class="testimonial-avatar" loading="lazy">
                         <div class="testimonial-user">
                             <h4>Emma Rodriguez</h4>
                             <p>Amateur Astronomer</p>
                             <div class="testimonial-rating">
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
                             </div>
                         </div>
                     </div>
@@ -780,7 +134,6 @@
         </div>
     </section>
 
-    <!-- Contact Section -->
     <section class="section" id="contact">
         <div class="container">
             <div class="section-title fade-in">
@@ -792,21 +145,15 @@
                     <h3>Contact Information</h3>
                     <div class="contact-details">
                         <div class="contact-item">
-                            <div class="contact-icon">
-                                <i class="fas fa-map-marker-alt"></i>
-                            </div>
+                            <div class="contact-icon"><i class="fas fa-map-marker-alt"></i></div>
                             <p>123 Cosmic Way, Galaxy City, Universe 90210</p>
                         </div>
                         <div class="contact-item">
-                            <div class="contact-icon">
-                                <i class="fas fa-phone-alt"></i>
-                            </div>
+                            <div class="contact-icon"><i class="fas fa-phone-alt"></i></div>
                             <p>+1 (555) 123-4567</p>
                         </div>
                         <div class="contact-item">
-                            <div class="contact-icon">
-                                <i class="fas fa-envelope"></i>
-                            </div>
+                            <div class="contact-icon"><i class="fas fa-envelope"></i></div>
                             <p>hello@cosmicexplorer.com</p>
                         </div>
                     </div>
@@ -818,7 +165,7 @@
                         <a href="#"><i class="fab fa-youtube"></i></a>
                     </div>
                 </div>
-                <form class="contact-form">
+                <form class="contact-form" id="contactForm">
                     <input type="text" placeholder="Your Name" required>
                     <input type="email" placeholder="Your Email" required>
                     <input type="text" placeholder="Subject">
@@ -829,7 +176,6 @@
         </div>
     </section>
 
-    <!-- Footer -->
     <footer>
         <div class="container">
             <div class="footer-content">
@@ -860,91 +206,75 @@
                 <div class="footer-column">
                     <h3>Newsletter</h3>
                     <p>Subscribe to our newsletter for cosmic updates and space news.</p>
-                    <form class="newsletter-form">
+                    <form class="newsletter-form" id="newsletterForm">
                         <input type="email" placeholder="Your Email" required>
                         <button type="submit" class="btn">Subscribe</button>
                     </form>
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>&copy; 2023 CosmicExplorer. All rights reserved. | Designed with <i class="fas fa-heart" style="color: #e74c3c;"></i> in the Milky Way</p>
+                <p>&copy; 2023 CosmicExplorer. All rights reserved. | Designed with <i class="fas fa-heart" style="color:#e74c3c"></i> by <a href="https://deepseek.com" target="_blank" style="color:var(--primary)">DeepSeek</a></p>
+                <p style="margin-top:10px;font-size:.8rem;opacity:.7">Website crafted with ❤️ by DeepSeek AI assistant</p>
             </div>
         </div>
     </footer>
 
-    <!-- Back to Top Button -->
-    <div class="back-to-top" id="backToTop">
-        <i class="fas fa-arrow-up"></i>
-    </div>
+    <div class="back-to-top" id="backToTop"><i class="fas fa-arrow-up"></i></div>
 
     <script>
-        // Mobile Menu Toggle
+        console.log('%c✨ CosmicExplorer Website ✨', 'font-size:18px;color:#6c5ce7;font-weight:bold');
+        console.log('%cCreated by DeepSeek AI Assistant', 'font-size:14px;color:#a29bfe');
+        console.log('%chttps://deepseek.com', 'font-size:12px;color:#ddd');
+        
+        // Mobile menu
         const hamburger = document.querySelector('.hamburger');
         const navLinks = document.querySelector('.nav-links');
-
+        
         hamburger.addEventListener('click', () => {
             navLinks.classList.toggle('active');
             hamburger.innerHTML = navLinks.classList.contains('active') ? 
                 '<i class="fas fa-times"></i>' : '<i class="fas fa-bars"></i>';
         });
-
-        // Close mobile menu when clicking a link
-        document.querySelectorAll('.nav-links a').forEach(link => {
-            link.addEventListener('click', () => {
+        
+        // Close menu when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!navLinks.contains(e.target) && !hamburger.contains(e.target)) {
                 navLinks.classList.remove('active');
                 hamburger.innerHTML = '<i class="fas fa-bars"></i>';
-            });
+            }
         });
-
-        // Theme Toggle
+        
+        // Theme toggle
         const themeToggle = document.getElementById('themeToggle');
         const html = document.documentElement;
-
+        
         themeToggle.addEventListener('click', () => {
             const currentTheme = html.getAttribute('data-theme');
             const newTheme = currentTheme === 'light' ? 'dark' : 'light';
             html.setAttribute('data-theme', newTheme);
-            
-            // Update icon
             themeToggle.innerHTML = newTheme === 'light' ? 
                 '<i class="fas fa-moon"></i>' : '<i class="fas fa-sun"></i>';
-            
-            // Save preference to localStorage
             localStorage.setItem('theme', newTheme);
         });
-
-        // Check for saved theme preference
-        const savedTheme = localStorage.getItem('theme') || 'light';
-        html.setAttribute('data-theme', savedTheme);
-        themeToggle.innerHTML = savedTheme === 'light' ? 
-            '<i class="fas fa-moon"></i>' : '<i class="fas fa-sun"></i>';
-
-        // Back to Top Button
+        
+        // Back to top button
         const backToTop = document.getElementById('backToTop');
-
         window.addEventListener('scroll', () => {
-            if (window.pageYOffset > 300) {
-                backToTop.classList.add('active');
-            } else {
+            window.pageYOffset > 300 ? 
+                backToTop.classList.add('active') : 
                 backToTop.classList.remove('active');
-            }
         });
-
+        
         backToTop.addEventListener('click', () => {
-            window.scrollTo({
-                top: 0,
-                behavior: 'smooth'
-            });
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         });
-
-        // Smooth scrolling for anchor links
+        
+        // Smooth scrolling
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function(e) {
                 e.preventDefault();
-                
                 const targetId = this.getAttribute('href');
                 if (targetId === '#') return;
-                
                 const targetElement = document.querySelector(targetId);
                 if (targetElement) {
                     window.scrollTo({
@@ -954,26 +284,31 @@
                 }
             });
         });
-
-        // Animation on scroll
+        
+        // Form handling
+        document.querySelectorAll('form').forEach(form => {
+            form.addEventListener('submit', (e) => {
+                e.preventDefault();
+                alert('Form submitted! (Demo)');
+                form.reset();
+            });
+        });
+        
+        // Scroll animations
         const fadeElements = document.querySelectorAll('.fade-in');
-
         const fadeInOnScroll = () => {
             fadeElements.forEach(element => {
                 const elementTop = element.getBoundingClientRect().top;
                 const windowHeight = window.innerHeight;
-                
                 if (elementTop < windowHeight - 100) {
                     element.style.opacity = '1';
                     element.style.transform = 'translateY(0)';
                 }
             });
         };
-
+        
         // Initial check
         fadeInOnScroll();
-
-        // Check on scroll
         window.addEventListener('scroll', fadeInOnScroll);
     </script>
 </body>
